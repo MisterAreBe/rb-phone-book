@@ -1,0 +1,12 @@
+th,
+td {
+    width: 20%;
+}
+tr {
+    background-color: darkslategray;
+}
+td {
+    text-align: left;
+    padding: 10px 10px 10px 20px;
+    background-color: #bcbe15;
+}

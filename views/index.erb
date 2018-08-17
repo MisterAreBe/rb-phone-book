@@ -1,12 +1,62 @@
 <center>
-    <form method='post' action='/add'>
-        <input type="text" name="f_name" id="f_name" placeholder="First Name">
-        <input type="text" name="l_name" id="l_name" placeholder="Last Name">
-        <input type="text" name="street" id="street" placeholder="Street Address">
-        <input type="text" name="city" id="city" placeholder="City">
-        <input type="text" name="state" id="state" placeholder="State">
-        <input type="text" name="zip" id="zip" placeholder="Zip">
-        <input type="text" name="p_num" id="p_num" placeholder="Phone Number">
-        <input type="submit" value="Submit">
+    <form method='post' action='/add' id="mah_form">
+        <center>
+            <input type="text" name="f_name" id="f_name" placeholder="First Name" required>
+            <input type="text" name="l_name" id="l_name" placeholder="Last Name" required>
+            <input type="text" name="street" id="street" placeholder="Street Address" required>
+            <input type="text" name="city" id="city" placeholder="City" required>
+            <input type="text" name="state" id="state" placeholder="State" required>
+            <input type="text" name="zip" id="zip" placeholder="Zip" required>
+            <input type="text" name="p_num" id="p_num" placeholder="Phone Number" required>
+            <input type="submit" value="Submit">
+            <table>
+                <center>
+                    <tr>
+                        <th>Update? No(<input type="radio" id="none" name="contacts" value="no" checked="checked">)</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Street</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Zip</th>
+                        <th>Phone Number</th>
+                    </tr>
+                    <% contact_list.each_with_index do |v,i| %>
+                        <tr id="<%= i %>">
+                            <td style="text-align: center;">
+                            <label for="updater<%= i %>">Update</label>
+                            <input type="radio" name="contacts" id="updater<%= i %>" value="<%= i %>" class="row"></td>
+                            <% v.each do |value_of_v| %>
+                                <td><%= value_of_v.join("") %></td>
+                            <% end %>
+                        </tr>
+                    <% end %>
+                </center>
+            </table>
+        </center>
     </form>
 </center>
+
+
+
+            <!--div>
+            <% contact_list.each_with_index do |v,i| %>
+                <table>
+                        <tr>
+                            <td>First Name:</td><td><%= v[0].join("") %></td>
+                        </tr><tr>
+                            <td>Last Name:</td><td><%= v[1].join("") %></td>
+                        </tr><tr>
+                            <td>Address:</td><td><%= v[2].join("") %></td>
+                        </tr><tr>
+                            <td>City:</td><td><%= v[3].join("") %></td>
+                        </tr><tr>
+                            <td>State:</td><td><%= v[4].join("") %></td>
+                        </tr><tr>
+                            <td>Zip:</td><td><%= v[5].join("") %></td>
+                        </tr><tr>
+                            <td>Phone Number:</td><td><%= v[6].join("") %></td>
+                        </tr>
+                </table>
+            <% end %>
+            </div-->
