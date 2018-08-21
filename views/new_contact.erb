@@ -1,0 +1,22 @@
+<center>
+    <form method="post" action="/add">
+        <center>
+            <div>
+                First Name: <input type="text" name="f_name" id="f_name" placeholder="First Name" pattern=".{2,}" required title="2 Letters Minimum">
+            </div><div>
+                Last Name: <input type="text" name="l_name" id="l_name" placeholder="Last Name" pattern=".{3,}" required title="3 Letters Minimum">
+            </div><div>
+                Street: <input type="text" name="street" id="street" placeholder="Street Address" required>
+            </div><div>
+                City: <input type="text" name="city" id="city" placeholder="City" required>
+            </div><div>
+                State: <input type="text" name="state" id="state" placeholder="State" pattern=".{2,2}" required title="Abbreviated States Only">
+            </div><div>
+                Zipcode: <input type="text" name="zip" id="zip" placeholder="Zip" pattern="\d{5}-?(\d{4})?" required title="5 Digit Minimum">
+            </div><div>
+                Phone Number: <input type="text" name="p_num" id="p_num" placeholder="Phone Number" onchange="this.value=format(this);" required title="10 digit Number">
+            </div>
+            <input type="submit" value="Add Contact">
+        </center>
+    </form>
+</center>

@@ -28,7 +28,7 @@ get '/list' do
   erb :index, :layout => :layout, locals: {contact_list: contact_list}
 end
 
-post '/add' do
+post '/update' do
   first_name = params[:f_name]
   last_name = params[:l_name]
   street = params[:street]
@@ -39,7 +39,9 @@ post '/add' do
   row_col = params[:contacts]
   update = params[:new_info]
 
-  unless row_col == "no"
+  if row_col == ""
+    redirect '/new_contact'
+  else
     temp = row_col.split("-")
     row = temp[0]
     col = temp[1].to_i
@@ -62,9 +64,25 @@ post '/add' do
     end
 
     client.query("UPDATE `contacts` SET `#{column}`='#{update}' WHERE `id`='#{row}'")
-  else
-    client.query("INSERT INTO contacts(First_Name, Last_Name, Street, City, State, Zip, Phone_Number)
-    VALUES('#{first_name}', '#{last_name}', '#{street}', '#{city}', '#{state}', '#{zip}', '#{phone_number}')")
   end
+  redirect '/list'
+end
+
+get '/new_contact' do
+  erb :new_contact, :layout => :layout
+end
+
+
+post "/add" do
+  first_name = params[:f_name]
+  last_name = params[:l_name]
+  street = params[:street]
+  city = params[:city]
+  state = params[:state]
+  zip = params[:zip]
+  phone_number = params[:p_num]
+
+  client.query("INSERT INTO contacts(First_Name, Last_Name, Street, City, State, Zip, Phone_Number)
+  VALUES('#{first_name}', '#{last_name}', '#{street}', '#{city}', '#{state}', '#{zip}', '#{phone_number}')")
   redirect '/list'
 end

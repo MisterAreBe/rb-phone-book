@@ -1,34 +1,9 @@
 <center>
-    <form method='post' action='/add' id="mah_form">
-    <input type="hidden" name="contacts" id="rowCol" value="no">
+    <form method='post' action='/update' id="mah_form">
+    <input type="hidden" name="contacts" id="rowCol" value="">
     <input type="hidden" name="new_info" id="update">
         <center>
-            <input type="button" onclick="openModal()" value="Add Contact">
-            <div id="modal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeModal()">&times;</span>
-                    <table class="modal-table">
-                        <center>
-                            <tr><td>
-                                First Name: <input type="text" name="f_name" id="f_name" placeholder="First Name" pattern=".{2,}" required title="2 Letters Minimum">
-                            </td></tr><tr><td>
-                                Last Name: <input type="text" name="l_name" id="l_name" placeholder="Last Name" pattern=".{3,}" required title="3 Letters Minimum">
-                            </td></tr><tr><td>
-                                Street: <input type="text" name="street" id="street" placeholder="Street Address" required>
-                            </td></tr><tr><td>
-                                City: <input type="text" name="city" id="city" placeholder="City" required>
-                            </td></tr><tr><td>
-                                State: <input type="text" name="state" id="state" placeholder="State" pattern=".{2,2}" required title="Abbreviated States Only">
-                            </td></tr><tr><td>
-                                Zipcode: <input type="text" name="zip" id="zip" placeholder="Zip" pattern="\d{5}-?(\d{4})?" required title="5 Digit Minimum">
-                            </td></tr><tr><td>
-                                Phone Number: <input type="text" name="p_num" id="p_num" placeholder="Phone Number" onchange="this.value=format(this);" required title="10 digit Number">
-                            </td></tr>
-                        </center>
-                    </table><br>
-                    <input type="submit" value="Submit">
-                </div>
-            </div>
+            <input type="submit" value="New Contact?">
             <br>
             <%row = 1%>
             <% contact_list.each do |v| %>
