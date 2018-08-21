@@ -11,6 +11,14 @@ results = client.query("SELECT * FROM contacts")
 
 
 get '/' do
+  erb :login, :layout => :layout
+end
+
+post '/contacts' do
+  redirect '/list'
+end
+
+get '/list' do
   resultSet = client.query('SELECT * FROM contacts')
   contact_list = []
   resultSet.each do |row|
@@ -28,14 +36,35 @@ post '/add' do
   state = params[:state]
   zip = params[:zip]
   phone_number = params[:p_num]
-  update = params[:contacts]
+  row_col = params[:contacts]
+  update = params[:new_info]
 
-  unless update == "no"
-    update = update.to_i + 1
-    client.query("UPDATE contacts SET First_Name = '#{first_name}', Last_Name = '#{last_name}', Street = '#{street}', City = '#{city}', State = '#{state}', Zip = '#{zip}', Phone_Number = '#{phone_number}' WHERE id = #{update}")
+  unless row_col == "no"
+    temp = row_col.split("-")
+    row = temp[0]
+    col = temp[1].to_i
+    column = ""
+    case col
+    when 1
+      column = "First_Name"
+    when 2
+      column = "Last_Name"
+    when 3
+      column = "Street"
+    when 4
+      column = "City"
+    when 5
+      column = "State"
+    when 6
+      column = "Zip"
+    when 7
+      column = "Phone_Number"
+    end
+
+    client.query("UPDATE `contacts` SET `#{column}`='#{update}' WHERE `id`='#{row}'")
   else
     client.query("INSERT INTO contacts(First_Name, Last_Name, Street, City, State, Zip, Phone_Number)
     VALUES('#{first_name}', '#{last_name}', '#{street}', '#{city}', '#{state}', '#{zip}', '#{phone_number}')")
   end
-  redirect '/'
+  redirect '/list'
 end

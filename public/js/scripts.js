@@ -1,29 +1,41 @@
-// function updateOrAdd() {
-//     var update = document.getElementsByName("contacts").value;
-//     var first = document.getElementsByName("f_name");
-//     var last = document.getElementsByName("l_name");
-//     var street = document.getElementsByName("street");
-//     var city = document.getElementsByName("city");
-//     var state = document.getElementsByName("state");
-//     var zip = document.getElementsByName("zip");
-//     var phone = document.getElementsByName("p_num");
-//     var arr = [first, last, street, city, state, zip, phone];
+document.addEventListener('DOMContentLoaded', function() {
+    updateForm(document.querySelector('#mah_form'));
+});
 
-//     if (update == "no"){
-//         document.getElementById("mah_form").submit();
-//     }else{
+function updateForm(theForm) {
+    theForm.addEventListener('blur', function(evt) {
+        console.log(evt);
+        var x = evt.target;
+        console.log(x);
+        var xId = x.id;
+        console.log(xId);
+        var xValue = x.value;
+        console.log(xValue);
+        var y = document.getElementById("rowCol");
+        var z = document.getElementById("update");
+        y.value = xId;
+        z.value = xValue;
+        document.getElementById("mah_form").submit();
+    }, true);
+}
 
-//     }
-// }
+function format(phone) {
+    var p_val = phone.value.replace(/\D[^\.]/g, "");
+    phone.value = p_val.slice(0,3)+"-"+p_val.slice(3,6)+"-"+p_val.slice(6);
+    return phone.value;
+}
 
-// function fillFields() {
-//     var first = document.getElementsByName("f_name");
-//     var last = document.getElementsByName("l_name");
-//     var street = document.getElementsByName("street");
-//     var city = document.getElementsByName("city");
-//     var state = document.getElementsByName("state");
-//     var zip = document.getElementsByName("zip");
-//     var phone = document.getElementsByName("p_num");
-//     var arr = [first, last, street, city, state, zip, phone];
+function openModal() {
+    document.getElementById("modal").style.display = "inline-block";
+}
 
-// }
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
+}
+
+window.onclick = function(event) {
+    var modal = document.getElementById("modal");
+    if (event.target == modal) {
+        document.getElementById("modal").style.display = "none";
+    }
+}
