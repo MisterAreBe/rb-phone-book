@@ -42,24 +42,36 @@ window.onclick = function(event) {
     }
 }
 
+function clearFound() {
+    document.getElementById("stop_search").value = "clear";
+    document.getElementById("search_item").value = "";
+    search();
+}
+
 function search() {
-    var x = document.getElementById("stop_search");
-    if (x.value != "") {
-        document.getElementById(x.value).style.backgroundColor = "";
-    }
+    z = document.getElementById("stop_search");
     var name = document.getElementById("search_form").elements["search_item"].value;
     var pattern = name.toLowerCase();
     var td = document.getElementsByClassName("name_phone");
-    for (var i = 0; i < td.length; i++) {
-       var contact = td[i].getElementsByTagName("input");
-       var index = contact[0].value.toLowerCase().indexOf(pattern);
-       if (index != -1) {
-          table = contact[0].parentNode.parentNode.parentNode.parentNode;
-          table.scrollIntoView();
-          table.style.backgroundColor = "blue";
-          contact[0].style.borderBottom = "1px solid white"
-          document.getElementById("stop_search").value = table.id;
-          break;
-       }
-    }  
- }
+    var contact, table, index;
+        if (z.value == "clear") {
+            for (var x = 0; x < td.length; x++) {
+                contact = td[x].getElementsByTagName("input");
+                table = contact[0].parentNode.parentNode.parentNode.parentNode;
+                table.style.backgroundColor = "#e4e70fc4";
+                contact[0].style.borderBottom = "none";
+            }
+            z.value = "";
+        }else if (pattern.length > 1) {
+        for (var i = 0; i < td.length; i++) {
+            contact = td[i].getElementsByTagName("input");
+            index = contact[0].value.toLowerCase().indexOf(pattern);
+            if (index != -1) {
+                table = contact[0].parentNode.parentNode.parentNode.parentNode;
+                table.scrollIntoView();
+                table.style.backgroundColor = "green";
+                contact[0].style.borderBottom = "1px solid white";
+            }
+        }
+    }
+}

@@ -1,14 +1,17 @@
 <center>
-    <form id="search_form" action="javascript:search();">
-        <input type="button" class="search_btn" value="Search" onclick="document.getElementById('search_form').submit(); return false;">
-        <input type="text" id="search_item" class="search_field" placeholder="Name/Phone Number">
-        <input type="hidden" id="stop_search">
-    </form>
+    <div class="top">
+        <input type="button" class="btn" onclick="openModal()" value="New Contact?">
+        <form id="search_form" action="javascript:search();">
+            <input type="text" id="search_item" class="search_field" placeholder="Name/Phone Number">
+            <input type="button" class="btn" value="Search" onclick="document.getElementById('search_form').submit(); return false;">
+            <input type="button" class="btn" value="Clear Found" onclick="clearFound()">
+            <input type="hidden" id="stop_search">
+        </form>
+    </div>
     <form method='post' action='/add' id="mah_form">
     <input type="hidden" name="contacts" id="rowCol" value="">
     <input type="hidden" name="new_info" id="update">
         <center>
-            <input type="button" onclick="openModal()" value="New Contact?">
             <div id="modal" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick="closeModal()">&times;</span>
@@ -43,37 +46,37 @@
                     <tr>
                         <td class="title">First Name:</td>
                         <td class="name_phone">
-                            <input type="text" id="<%=single%>" placeholder="First Name" value="<%=v[0].join("")%>" pattern=".{2,}" required title="2 Letters Minimum">
+                            <input type="text" id="<%=single%>" placeholder="First Name" value="<%=v[0].join("")%>">
                             <% col += 1 %><% single = "#{row}-#{col}" %></td>
                     </tr><tr>
                         <td class="title">Last Name:</td>
                         <td class="value">
-                            <input type="text" id="<%=single%>" placeholder="Last Name" value="<%=v[1].join("")%>" pattern=".{3,}" required title="3 Letters Minimum">
+                            <input type="text" id="<%=single%>" placeholder="Last Name" value="<%=v[1].join("")%>">
                             <% col += 1 %><% single = "#{row}-#{col}" %></td>
                     </tr><tr>
                         <td class="title">Address:</td>
                         <td class="value">
-                            <input type="text" id="<%=single%>" placeholder="Street Address" value="<%=v[2].join("")%>" required>
+                            <input type="text" id="<%=single%>" placeholder="Street Address" value="<%=v[2].join("")%>">
                             <% col += 1 %><% single = "#{row}-#{col}" %></td>
                     </tr><tr>
                         <td class="title">City:</td>
                         <td class="value">
-                            <input type="text" id="<%=single%>" placeholder="City" value="<%=v[3].join("")%>" required>
+                            <input type="text" id="<%=single%>" placeholder="City" value="<%=v[3].join("")%>">
                             <% col += 1 %><% single = "#{row}-#{col}" %></td>
                     </tr><tr>
                         <td class="title">State:</td>
                         <td class="value">
-                            <input type="text" id="<%=single%>" placeholder="State" value="<%=v[4].join("")%>" pattern=".{2,2}" required title="Abbreviated States Only">
+                            <input type="text" id="<%=single%>" placeholder="State" value="<%=v[4].join("")%>">
                             <% col += 1 %><% single = "#{row}-#{col}" %></td>
                     </tr><tr>
                         <td class="title">Zip:</td>
                         <td class="value">
-                            <input type="text" id="<%=single%>" placeholder="Zip" value="<%=v[5].join("")%>" pattern="\d{5}-?(\d{4})?" required title="5 Digit Minimum">
+                            <input type="text" id="<%=single%>" placeholder="Zip" value="<%=v[5].join("")%>">
                             <% col += 1 %><% single = "#{row}-#{col}" %></td>
                     </tr><tr>
                         <td class="title">Phone Number:</td>
                         <td class="name_phone">
-                            <input type="tel" id="<%=single%>" placeholder="Phone Number" value="<%=v[6].join("")%>" onchange="this.value=format(this);" required title="10 digit Numbers">
+                            <input type="tel" id="<%=single%>" placeholder="Phone Number" value="<%=v[6].join("")%>" onchange="this.value=format(this);">
                             <% col += 1 %><% single = "#{row}-#{col}" %></td>
                     </tr>
                 </table><% row += 1 %>
