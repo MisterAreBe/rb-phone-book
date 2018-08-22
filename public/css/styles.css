@@ -25,7 +25,8 @@ td {
     width: 40%;
     text-align: right;
 }
-.value {
+.value,
+.name_phone {
     width: 70%;
     text-align: left;
 }

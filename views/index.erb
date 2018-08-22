@@ -1,9 +1,39 @@
 <center>
-    <form method='post' action='/update' id="mah_form">
+    <form id="search_form" action="javascript:search();">
+        <input type="button" class="search_btn" value="Search" onclick="document.getElementById('search_form').submit(); return false;">
+        <input type="text" id="search_item" class="search_field" placeholder="Name/Phone Number">
+        <input type="hidden" id="stop_search">
+    </form>
+    <form method='post' action='/add' id="mah_form">
     <input type="hidden" name="contacts" id="rowCol" value="">
     <input type="hidden" name="new_info" id="update">
         <center>
-            <input type="submit" value="New Contact?">
+            <input type="button" onclick="openModal()" value="New Contact?">
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <table class="modal-table">
+                        <center>
+                            <tr><td>
+                                First Name: <input type="text" name="f_name" placeholder="First Name" pattern=".{2,}" required title="2 Letters Minimum">
+                            </td></tr><tr><td>
+                                Last Name: <input type="text" name="l_name" placeholder="Last Name" pattern=".{3,}" required title="3 Letters Minimum">
+                            </td></tr><tr><td>
+                                Street: <input type="text" name="street" placeholder="Street Address" required>
+                            </td></tr><tr><td>
+                                City: <input type="text" name="city" placeholder="City" required>
+                            </td></tr><tr><td>
+                                State: <input type="text" name="state" placeholder="State" pattern=".{2,2}" required title="Abbreviated States Only">
+                            </td></tr><tr><td>
+                                Zipcode: <input type="text" name="zip" placeholder="Zip" pattern="\d{5}-?(\d{4})?" required title="5 Digit Minimum">
+                            </td></tr><tr><td>
+                                Phone Number: <input type="text" name="p_num" placeholder="Phone Number" onchange="this.value=format(this);" required title="10 digit Number">
+                            </td></tr>
+                        </center>
+                    </table><br>
+                    <input type="submit" value="Add Contact">
+                </div>
+            </div>
             <br>
             <%row = 1%>
             <% contact_list.each do |v| %>
@@ -12,7 +42,7 @@
                 <table id="<%= row %>">
                     <tr>
                         <td class="title">First Name:</td>
-                        <td class="value">
+                        <td class="name_phone">
                             <input type="text" id="<%=single%>" placeholder="First Name" value="<%=v[0].join("")%>" pattern=".{2,}" required title="2 Letters Minimum">
                             <% col += 1 %><% single = "#{row}-#{col}" %></td>
                     </tr><tr>
@@ -42,7 +72,7 @@
                             <% col += 1 %><% single = "#{row}-#{col}" %></td>
                     </tr><tr>
                         <td class="title">Phone Number:</td>
-                        <td class="value">
+                        <td class="name_phone">
                             <input type="tel" id="<%=single%>" placeholder="Phone Number" value="<%=v[6].join("")%>" onchange="this.value=format(this);" required title="10 digit Numbers">
                             <% col += 1 %><% single = "#{row}-#{col}" %></td>
                     </tr>
