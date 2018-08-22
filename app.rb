@@ -24,8 +24,8 @@ get '/list' do
   resultSet.each do |row|
     contact_list << [[row['First_Name']], [row['Last_Name']], [row['Street']], [row['City']], [row['State']], [row['Zip']], [row['Phone_Number']]]
   end
-
-  erb :index, :layout => :layout, locals: {contact_list: contact_list}
+  scroll = session[:scroll] || "0"
+  erb :index, :layout => :layout, locals: {contact_list: contact_list, scroll: scroll}
 end
 
 post '/add' do
@@ -38,6 +38,7 @@ post '/add' do
   phone_number = params[:p_num]
   row_col = params[:contacts]
   update = params[:new_info]
+  scroll = params[:scroll]
 
   unless row_col == ""
     temp = row_col.split("-")
@@ -66,5 +67,6 @@ post '/add' do
     client.query("INSERT INTO contacts(First_Name, Last_Name, Street, City, State, Zip, Phone_Number)
     VALUES('#{first_name}', '#{last_name}', '#{street}', '#{city}', '#{state}', '#{zip}', '#{phone_number}')")
   end
+  session[:scroll] = scroll
   redirect '/list'
 end

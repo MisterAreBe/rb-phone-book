@@ -1,12 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     updateForm(document.querySelector('#mah_form'));
 });
-
+window.onload = function() {
+    var y = document.getElementById("yScroll");
+    window.scrollTo(0, y.value);
+}
 function updateForm(theForm) {
     theForm.addEventListener('blur', function(evt) {
-        console.log(evt);
         var x = evt.target;
-        console.log(x);
+        console.log(evt);
         var xId = x.id;
         console.log(xId);
         var xValue = x.value;
@@ -15,7 +17,10 @@ function updateForm(theForm) {
         var z = document.getElementById("update");
         y.value = xId;
         z.value = xValue;
-        if (y.value.length > 1) {
+        if (y.value.length >= 3) {
+            var a = document.getElementById("yScroll");
+            var b = window.pageYOffset;
+            a.value = b;
             document.getElementById("mah_form").submit();
         }
     }, true);
@@ -65,7 +70,6 @@ function search() {
         }else if (pattern.length > 1) {
         for (var i = 0; i < td.length; i++) {
             contact = td[i].getElementsByTagName("input");
-            console.log(contact);
             index = contact[0].value.toLowerCase();
             if (pattern == index) {
                 table = contact[0].parentNode.parentNode.parentNode.parentNode;

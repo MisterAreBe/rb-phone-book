@@ -9,6 +9,7 @@
         </form>
     </div>
     <form method='post' action='/add' id="mah_form">
+    <input type="hidden" name="scroll" id="yScroll" value="<%=scroll%>">
     <input type="hidden" name="contacts" id="rowCol" value="">
     <input type="hidden" name="new_info" id="update">
         <center>
@@ -34,7 +35,7 @@
                             </td></tr>
                         </center>
                     </table><br>
-                    <input type="submit" value="Add Contact">
+                    <input type="submit" value="Add Contact" class="btn">
                 </div>
             </div>
             <br>
