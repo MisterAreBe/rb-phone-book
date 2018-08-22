@@ -65,8 +65,9 @@ function search() {
         }else if (pattern.length > 1) {
         for (var i = 0; i < td.length; i++) {
             contact = td[i].getElementsByTagName("input");
-            index = contact[0].value.toLowerCase().indexOf(pattern);
-            if (index != -1) {
+            console.log(contact);
+            index = contact[0].value.toLowerCase();
+            if (pattern == index) {
                 table = contact[0].parentNode.parentNode.parentNode.parentNode;
                 table.scrollIntoView();
                 table.style.backgroundColor = "green";
