@@ -1,3 +1,4 @@
+// Update DB on blur && scroll to position
 document.addEventListener('DOMContentLoaded', function() {
     updateForm(document.querySelector('#mah_form'));
 });
@@ -25,34 +26,32 @@ function updateForm(theForm) {
         }
     }, true);
 }
-
+// Format phone field
 function format(phone) {
     var p_val = phone.value.replace(/\D[^\.]/g, "");
     phone.value = p_val.slice(0,3)+"-"+p_val.slice(3,6)+"-"+p_val.slice(6);
     return phone.value;
 }
-
+// Modal
 function openModal() {
     document.getElementById("modal").style.display = "inline-block";
 }
-
 function closeModal() {
     document.getElementById("modal").style.display = "none";
 }
-
 window.onclick = function(event) {
     var modal = document.getElementById("modal");
     if (event.target == modal) {
         document.getElementById("modal").style.display = "none";
     }
 }
-
+// Clear seleceted tables
 function clearFound() {
     document.getElementById("stop_search").value = "clear";
     document.getElementById("search_item").value = "";
     search();
 }
-
+// Search tables
 function search() {
     z = document.getElementById("stop_search");
     var name = document.getElementById("search_form").elements["search_item"].value;

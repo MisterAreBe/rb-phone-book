@@ -1,5 +1,29 @@
-<form method="post" action='/contacts'>
+<title>Login</title>
+<script src="js/login.js"></script>
+<form id="da_form" method="post" action='/contacts'>
     <center>
-        <input type="submit" value="Welcome">
+        <div class="login_field">
+            <div class="login_btn">
+                <span><%=error_msg1%></span><br>
+                <span><%=error_msg2%></span>
+            </div>
+            <div class="lefty">
+                <label for="userName" id="userNameLabel">Username:</label><br>
+                  <input type="text" name="username" id="userName" placeholder="Username" pattern=".{5,18}" required="true"><br>
+                <label for="pass" id="passLabel">Password:</label><br>
+                  <input type="password" name="password" id="pass" placeholder="Password" pattern=".{8,23}" required="true"><br>
+                <label for="vPass" id="vPassLabel" style="display: none;">Confirm Password:</label><br>
+                  <input type="hidden" name="validate_password" id="vPass" placeholder="Confirm Password">
+                <div class="login_btn">
+                    <input type="hidden" value="Cancel" id="cancel" onclick="nevermind()">
+                    <input type="button" value="New User" id="newUser" onclick="noob()">
+                    <input type="button" value="Login" id="loginUser" onclick="document.getElementById('login_create').value='0';
+                        document.getElementById('da_form').submit()">
+                    <input type="hidden" value="Create User" id="createUser" onclick="document.getElementById('login_create').value='1';
+                        document.getElementById('da_form').submit()">
+                    <input type="hidden" name="what_do" id="login_create" value="0">
+                </div>
+            </div>
+        </div>
     </center>
 </form>
