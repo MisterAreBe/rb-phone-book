@@ -591,12 +591,22 @@ GEM
     aws-sigv2 (1.0.1)
     aws-sigv4 (1.0.3)
     bcrypt (3.1.12-x64-mingw32)
+    crass (1.0.4)
     jmespath (1.4.0)
+    mini_portile2 (2.3.0)
     mustermann (1.0.2)
     mysql2 (0.5.2-x64-mingw32)
+    nokogiri (1.8.4-x64-mingw32)
+      mini_portile2 (~> 2.3.0)
+    nokogumbo (1.5.0)
+      nokogiri
     rack (2.0.5)
     rack-protection (2.0.3)
       rack
+    sanitize (4.6.6)
+      crass (~> 1.0.2)
+      nokogiri (>= 1.4.4)
+      nokogumbo (~> 1.4)
     sinatra (2.0.3)
       mustermann (~> 1.0)
       rack (~> 2.0)
@@ -611,6 +621,7 @@ DEPENDENCIES
   aws-sdk
   bcrypt
   mysql2
+  sanitize
   sinatra
 
 RUBY VERSION

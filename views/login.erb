@@ -1,6 +1,6 @@
 <title>Login</title>
 <script src="js/login.js"></script>
-<form id="da_form" method="post" action='/contacts'>
+<form id="da_form" method="post" action='/login'>
     <center>
         <div class="login_field">
             <div class="login_btn">
@@ -17,11 +17,8 @@
                 <div class="login_btn">
                     <input type="hidden" value="Cancel" id="cancel" onclick="nevermind()">
                     <input type="button" value="New User" id="newUser" onclick="noob()">
-                    <input type="button" value="Login" id="loginUser" onclick="document.getElementById('login_create').value='0';
-                        document.getElementById('da_form').submit()">
-                    <input type="hidden" value="Create User" id="createUser" onclick="document.getElementById('login_create').value='1';
-                        document.getElementById('da_form').submit()">
-                    <input type="hidden" name="what_do" id="login_create" value="0">
+                    <input type="button" value="Login" id="loginUser" onclick="document.getElementById('da_form').submit()">
+                    <input type="hidden" value="Create User" id="createUser" onclick="document.getElementById('da_form').submit()">
                 </div>
             </div>
         </div>

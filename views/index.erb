@@ -6,12 +6,23 @@
   crossorigin="anonymous">
 </script>
 <center>
+    <div class="welcome">
+        Welcome <%=user_name%>!
+    </div>
+    <div class="logout">
+        <form method='get' action='/' id="send_back">
+            <input type="button" class="btn" value="Logout" id="logout_btn" onclick="docutment.getElementById('send_back').submit();"
+            style="height:10%">
+        </form>
+    </div>
     <div class="top">
         <input type="button" class="btn" onclick="openModal()" value="New Contact?">
         <form id="search_form" action="javascript:search();">
             <input type="text" id="search_item" class="search_field" placeholder="Name/Phone Number">
-            <input type="button" class="btn" value="Search" onclick="document.getElementById('search_form').submit(); return false;">
-            <input type="button" class="btn" value="Clear Found" onclick="clearFound()">
+            <input type="button" class="btn" value="Search" onclick="document.getElementById('search_form').submit(); return false;"
+            style="width: 10%; height: 15%;">
+            <input type="button" class="btn" value="Clear" onclick="clearFound()"
+            style="width: 10%; height: 15%;">
             <input type="hidden" id="stop_search">
         </form>
     </div>
@@ -60,7 +71,8 @@
                         <td class="name_phone">
                             <input type="text" id="<%=single%>" placeholder="First Name" value="<%=v[0].join("")%>">
                             <% col += 1 %><% single = "#{row[i]}-#{col}" %></td><td>
-                            <input type="checkbox" class="close <%=row[i]%>" name="delete_contact" onclick="deleteThis();">&times;</td>
+                            <input type="checkbox" id="delete<%=row[i]%>" name="delete_contact" onclick="deleteThis();">
+                            <label for="delete<%=row[i]%>" class="delete" >&times;</label></td>
                     </tr><tr>
                         <td class="title">Last Name:</td>
                         <td class="value">

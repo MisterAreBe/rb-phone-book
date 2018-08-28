@@ -108,26 +108,14 @@ td {
     display: inline-block;
     box-shadow: 0 10px 10px #333333;
 }
+.btn:hover {
+    background-color: #e4e70fc4;
+    border: 5px solid #5a5a5a;
+    color: #ffffff;
+}
 #search_form {
     width: 70%;
     display: inline-block;
-}
-#search_form .btn{
-    background-color: #5a5a5a;
-    border: 5px solid #888888;
-    color: #e4e70fc4;
-    font-family: Roboto, sans-serif;
-    font-weight: 500;
-    font-size: 1rem;
-    border-radius: 100%;
-    width: 10%;
-    height: 15%;
-    padding: 10px;
-    text-align: center;
-    outline: none;
-    cursor: pointer;
-    display: inline-block;
-    box-shadow: 0 10px 10px #333333;
 }
 .login_field {
     display: inline-block;
@@ -155,4 +143,25 @@ td {
 }
 .login_btn span {
     color: #ff0000;
+}
+.welcome {
+    display: inline-block;
+    color: #ffffff;
+    padding: 5px 0px 5px 20px;
+    margin: 10px 0px;
+    font-size: 2rem;
+    width: 90%;
+}
+.logout {
+    display: inline-block;
+    text-align: right;
+    padding: 5px 20px 5px 0px;
+    margin: 10px 0px;
+    width: 5%;
+}
+input[type=checkbox] {
+    
+}
+.delete {
+    background-color: #008000;
 }

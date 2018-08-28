@@ -22,6 +22,7 @@ function updateForm(theForm) {
             var a = document.getElementById("yScroll");
             var b = window.pageYOffset;
             a.value = b;
+            document.getElementById("mah_form").action = "/update";
             document.getElementById("mah_form").submit();
         }
     }, true);
@@ -79,6 +80,7 @@ function search() {
         }
     }
 }
+// delete contact
 function deleteThis() {
     var checkbox = document.getElementsByName("delete_contact");
     for (var i = 0; i < checkbox.length; i++) {
@@ -98,31 +100,3 @@ function deleteThis() {
         }
     }
 }
-// function deleteThis() {
-//     var checkbox = document.getElementsByName("delete_contact");
-//     for (var i = 0; i < checkbox.length; i++) {
-//         if (checkbox[i].checked) {
-//             var take = checkbox[i].parentNode.parentNode.parentNode.parentNode.id;
-//             $.ajax({
-//                 type: "POST",
-//                 url: "http://localhost:4567/add",
-//                 data: {a:take},
-//                 beforeSend: function () {
-
-//                 },
-//                 success: function (data, textStatus, XMLHttpRequest) {
-//                     // do da delete
-//                     console.log("Row deleted?");
-//                     console.log(`${data}`);
-//                     console.log(`${textStatus}`);
-//                     console.log(`${XMLHttpRequest}`);
-                    
-//                 },
-//                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-//                     // do you action
-//                 }
-//             });
-//             break;
-//         }
-//     }
-// }

@@ -9,7 +9,9 @@ function noob() {
     var newUser = document.getElementById("newUser");
     var login = document.getElementById("loginUser");
     var create = document.getElementById("createUser");
+    var form = document.getElementById("da_form");
 
+    form.action = "/new_user";
     login.type = "hidden";
     create.type = "button";
     newUser.type = "hidden";
@@ -33,7 +35,9 @@ function nevermind() {
     var newUser = document.getElementById("newUser");
     var login = document.getElementById("loginUser");
     var create = document.getElementById("createUser");
+    var form = document.getElementById("da_form");
 
+    form.action = "/login";
     login.type = "button";
     create.type = "hidden";
     newUser.type = "button";
