@@ -1,5 +1,10 @@
 <title>Contacts</title>
 <script src="js/scripts.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous">
+</script>
 <center>
     <div class="top">
         <input type="button" class="btn" onclick="openModal()" value="New Contact?">
@@ -92,35 +97,3 @@
         </center>
     </form>
 </center>
-<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
-</script><script>
-function deleteThis() {
-    var checkbox = document.getElementsByName("delete_contact");
-    for (var i = 0; i < checkbox.length; i++) {
-        if (checkbox[i].checked) {
-            var take = checkbox[i].parentNode.parentNode.parentNode.parentNode.id;
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:4567/add",
-                data: {a:take},
-                beforeSend: function () {
-
-                },
-                success: function (data, textStatus, XMLHttpRequest) {
-                    // do da delete
-                    console.log("Row deleted?");
-                    console.log(`${data}`);
-                    console.log(`${textStatus}`);
-                    console.log(`${XMLHttpRequest}`);
-                    
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    // do you action
-                }
-            });
-            break;
-        }
-    }
-}
-</script>

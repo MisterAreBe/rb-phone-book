@@ -105,9 +105,7 @@ post '/add' do
       good -= 1
     end
   end
-  if delete_contact.to_i > 0
-    client.query("DELETE FROM `contacts` WHERE `id`='#{delete_contact}'")
-  elsif row_col != ""
+  if row_col != ""
     temp = row_col.split("-")
     row = temp[0]
     col = temp[1].to_i
@@ -136,5 +134,12 @@ post '/add' do
   end
   session[:scroll] = scroll
   session[:user_name] = user_name
+  redirect '/list'
+end
+
+post '/delete_contact' do
+  delete_contact = params[:row]
+  puts "#{delete_contact}"
+  client.query("DELETE FROM `contacts` WHERE `id`='#{delete_contact}'")
   redirect '/list'
 end
