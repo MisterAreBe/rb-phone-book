@@ -2,6 +2,7 @@ require 'sinatra'
 require 'mysql2'
 require 'aws-sdk'
 require 'bcrypt'
+require 'sanitize'
 require_relative 'clean.rb' 
 
 load 'local_ENV.rb' if File.exist?('local_ENV.rb')
@@ -23,20 +24,15 @@ get '/' do
 end
 
 post '/login' do
-  results = client.query("SELECT * FROM users")
-  username = params[:username]
-  password = params[:password]
+  username = params[:username] || ""
+  password = params[:password] || ""
   checked = []
   kept_name = []
   correct_pass = []
 
   # cleaning user input
-  username = client.escape(username)
-  password = client.escape(password)
-  unless clean(username) && clean(password)
-    session[:error] = "Incorrect Username or Password.-Try Again, or Create New User."
-    redirect '/'
-  end
+  username = client.escape(username); username = Sanitize.clean(username)
+  password = client.escape(password); password = Sanitize.clean(password)
 
   # gathering user info
   validation = client.query("SELECT `password` FROM users WHERE `user_name` = '#{username}'")
@@ -62,10 +58,15 @@ post '/login' do
 end
 
 post '/new_user' do
-  results = client.query("SELECT * FROM users")
-  username = params[:username]
-  password = params[:password]
-  new_password = params[:validate_password]
+  username = params[:username] || ""
+  password = params[:password] || ""
+  new_password = params[:validate_password] || ""
+
+
+  #cleaning user input
+  username = Sanitize.clean(username); username = client.escape(username)
+  password = Sanitize.clean(password); password = client.escape(password)
+  new_password = Sanitze.clean(new_password); new_password = client.escape(new_password)
 
   # checking passwords match
   unless password == new_password
@@ -82,14 +83,6 @@ post '/new_user' do
     end
   end
 
-  # cleaning user input
-  username = client.escape(username)
-  password = client.escape(password)
-  unless clean(username) && clean(password)
-    session[:error] = "Invalid characters being used!-Account creation failed."
-    redirect '/'
-  end
-
   # creating new user
   secure_password = BCrypt::Password.create(password)
   client.query("INSERT INTO `users`(user_name, password)
@@ -99,7 +92,7 @@ post '/new_user' do
 end
 
 get '/list' do
-  user_name = session[:user_name]
+  user_name = session[:user_name] || ""
   contact_list = []
   contact_record = []
   # fetching user data
@@ -114,22 +107,26 @@ get '/list' do
 end
 
 post '/add' do
-  user_name = params[:user_name]
-  first_name = params[:f_name]
-  last_name = params[:l_name]
-  street = params[:street]
-  city = params[:city]
-  state = params[:state]
-  zip = params[:zip]
-  phone_number = params[:p_num]
+  temp_hash = {
+  user_name: params[:user_name] || "",
+  first_name: params[:f_name] || "",
+  last_name: params[:l_name] || "",
+  street: params[:street] || "",
+  city: params[:city] || "",
+  state: params[:state] || "",
+  zip: params[:zip] || "",
+  phone_number: params[:p_num] || "",
+  }
 
-  # escaping str
-  temp_arr = [user_name, first_name, last_name, street, city, state, zip, phone_number]
-  temp_arr.collect! {|v| v = client.escape(v)}
+  # cleaning and escaping user input
+  temp_hash.each do |key,value|
+    temp_hash[key] = Sanitize.clean(value)
+    temp_hash[key] = client.escape(value)
+  end
 
   # adding contact to db
   client.query("INSERT INTO `contacts`(user_name, First_Name, Last_Name, Street, City, State, Zip, Phone_Number)
-  VALUES('#{temp_arr[0]}', '#{temp_arr[1]}', '#{temp_arr[2]}', '#{temp_arr[3]}', '#{temp_arr[4]}', '#{temp_arr[5]}', '#{temp_arr[6]}', '#{temp_arr[7]}')")
+  VALUES('#{temp_hash[user_name]}', '#{temp_hash[first_name]}', '#{temp_hash[last_name]}', '#{temp_hash[street]}', '#{temp_hash[city]}', '#{temp_hash[state]}', '#{temp_hash[zip]}', '#{temp_hash[phone_number]}')")
 
   session[:user_name] = user_name
   redirect '/list'
