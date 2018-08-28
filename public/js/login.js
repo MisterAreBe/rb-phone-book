@@ -13,11 +13,10 @@ function noob() {
 
     form.action = "/new_user";
     login.type = "hidden";
-    create.type = "button";
+    create.type = "submit";
     newUser.type = "hidden";
     cancel.type = "button";
     vPass.type = "password";
-    vPass.required = "true";
     vPassLabel.style.display = "inline-block";
     userLabel.innerText = "New Username:";
     user.placeholder = "New Username";
@@ -38,12 +37,11 @@ function nevermind() {
     var form = document.getElementById("da_form");
 
     form.action = "/login";
-    login.type = "button";
+    login.type = "submit";
     create.type = "hidden";
     newUser.type = "button";
     cancel.type = "hidden";
     vPass.type = "hidden";
-    vPass.required = "false";
     vPassLabel.style.display = "none";
     userLabel.innerText = "Username:";
     user.placeholder = "Username";

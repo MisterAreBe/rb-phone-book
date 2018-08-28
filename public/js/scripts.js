@@ -30,7 +30,12 @@ function updateForm(theForm) {
 // Format phone field
 function format(phone) {
     var p_val = phone.value.replace(/\D[^\.]/g, "");
-    phone.value = p_val.slice(0,3)+"-"+p_val.slice(3,6)+"-"+p_val.slice(6);
+    var temp = p_val.slice(0,3);
+    if (temp != "304") {
+        phone.value = "1("+temp+")"+p_val.slice(3,6)+"-"+p_val.slice(6);
+    }else{
+        phone.value = p_val.slice(0,3)+"-"+p_val.slice(3,6)+"-"+p_val.slice(6);
+    }
     return phone.value;
 }
 // Modal

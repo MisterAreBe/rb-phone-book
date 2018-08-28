@@ -160,8 +160,17 @@ td {
     width: 5%;
 }
 input[type=checkbox] {
-    
+    display: none;
 }
 .delete {
-    background-color: #008000;
+    color: #960000;
+    float: right;
+    font-size: 3rem;
+    font-weight: bold;
+}
+.delete:hover,
+.delete:focus {
+    color: #000000;
+    text-decoration: none;
+    cursor: pointer;
 }

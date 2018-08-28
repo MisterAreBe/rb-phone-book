@@ -9,16 +9,16 @@
             </div>
             <div class="lefty">
                 <label for="userName" id="userNameLabel">Username:</label><br>
-                  <input type="text" name="username" id="userName" placeholder="Username" pattern=".{5,18}" required="true"><br>
+                  <input type="text" name="username" id="userName" placeholder="Username" pattern=".{5,18}" required title="Usernames must be 5 to 18 characters."><br>
                 <label for="pass" id="passLabel">Password:</label><br>
-                  <input type="password" name="password" id="pass" placeholder="Password" pattern=".{8,23}" required="true"><br>
+                  <input type="password" name="password" id="pass" placeholder="Password" pattern=".{8,23}" required title="Passwords must be 8 to 23 characters."><br>
                 <label for="vPass" id="vPassLabel" style="display: none;">Confirm Password:</label><br>
                   <input type="hidden" name="validate_password" id="vPass" placeholder="Confirm Password">
                 <div class="login_btn">
                     <input type="hidden" value="Cancel" id="cancel" onclick="nevermind()">
                     <input type="button" value="New User" id="newUser" onclick="noob()">
-                    <input type="button" value="Login" id="loginUser" onclick="document.getElementById('da_form').submit()">
-                    <input type="hidden" value="Create User" id="createUser" onclick="document.getElementById('da_form').submit()">
+                    <input type="submit" value="Login" id="loginUser">
+                    <input type="hidden" value="Create User" id="createUser">
                 </div>
             </div>
         </div>

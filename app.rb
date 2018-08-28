@@ -65,7 +65,7 @@ post '/new_user' do
   results = client.query("SELECT * FROM users")
   username = params[:username]
   password = params[:password]
-  new_password = params[:validate_password] || ""
+  new_password = params[:validate_password]
 
   # checking passwords match
   unless password == new_password
@@ -76,7 +76,7 @@ post '/new_user' do
   # checking username isn't taken
   unique_user = client.query("SELECT `user_name` FROM users")
   unique_user.each do |v|
-    if username == v
+    if v.has_value?(username)
       session[:error] = "Username already taken.-Please select a new one."
       redirect '/'
     end
@@ -122,15 +122,14 @@ post '/add' do
   state = params[:state]
   zip = params[:zip]
   phone_number = params[:p_num]
-  # temp_arr = [user_name, first_name, last_name, street, city, state, zip, phone_number]
-  # good = 8
-  # temp_arr.each do |v|
-  #   if v == ""
-  #     good -= 1
-  #   end
-  # end
+
+  # escaping str
+  temp_arr = [user_name, first_name, last_name, street, city, state, zip, phone_number]
+  temp_arr.collect! {|v| v = client.escape(v)}
+
+  # adding contact to db
   client.query("INSERT INTO `contacts`(user_name, First_Name, Last_Name, Street, City, State, Zip, Phone_Number)
-  VALUES('#{user_name}', '#{first_name}', '#{last_name}', '#{street}', '#{city}', '#{state}', '#{zip}', '#{phone_number}')")
+  VALUES('#{temp_arr[0]}', '#{temp_arr[1]}', '#{temp_arr[2]}', '#{temp_arr[3]}', '#{temp_arr[4]}', '#{temp_arr[5]}', '#{temp_arr[6]}', '#{temp_arr[7]}')")
 
   session[:user_name] = user_name
   redirect '/list'
@@ -141,6 +140,9 @@ post '/update' do
   row_col = params[:contacts]
   update = params[:new_info]
   scroll = params[:scroll]
+
+  # escaping str
+  update = client.escape(update)
 
   # finding what it being updated
   temp = row_col.split("-")

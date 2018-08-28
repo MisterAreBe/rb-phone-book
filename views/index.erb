@@ -50,7 +50,7 @@
                             </td></tr><tr><td>
                                 Zipcode: <input type="text" name="zip" placeholder="Zip" pattern="\d{5}-?(\d{4})?" required title="5 Digit Minimum">
                             </td></tr><tr><td>
-                                Phone Number: <input type="text" name="p_num" placeholder="Phone Number" onchange="this.value=format(this);" required title="10 digit Number">
+                                Phone Number: <input type="text" name="p_num" placeholder="Phone Number" minlength="10" maxlength="14" onchange="this.value=format(this);" required title="10 digit Number">
                             </td></tr>
                         </center>
                     </table><br>
