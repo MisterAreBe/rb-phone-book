@@ -65,7 +65,7 @@ post '/new_user' do
   #cleaning user input
   username = Sanitize.clean(username); username = client.escape(username)
   password = Sanitize.clean(password); password = client.escape(password)
-  new_password = Sanitze.clean(new_password); new_password = client.escape(new_password)
+  new_password = Sanitize.clean(new_password); new_password = client.escape(new_password)
 
   # checking passwords match
   unless password == new_password
