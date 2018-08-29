@@ -3,7 +3,6 @@ require 'mysql2'
 require 'aws-sdk'
 require 'bcrypt'
 require 'sanitize'
-require_relative 'clean.rb' 
 
 load 'local_ENV.rb' if File.exist?('local_ENV.rb')
 enable :sessions
@@ -107,8 +106,8 @@ get '/list' do
 end
 
 post '/add' do
+  user_name = session[:user_name] || ""
   temp_hash = {
-  user_name: params[:user_name] || "",
   first_name: params[:f_name] || "",
   last_name: params[:l_name] || "",
   street: params[:street] || "",
@@ -117,28 +116,29 @@ post '/add' do
   zip: params[:zip] || "",
   phone_number: params[:p_num] || "",
   }
-
+puts temp_hash
   # cleaning and escaping user input
   temp_hash.each do |key,value|
     temp_hash[key] = Sanitize.clean(value)
     temp_hash[key] = client.escape(value)
   end
-
+puts temp_hash
   # adding contact to db
   client.query("INSERT INTO `contacts`(user_name, First_Name, Last_Name, Street, City, State, Zip, Phone_Number)
-  VALUES('#{temp_hash[user_name]}', '#{temp_hash[first_name]}', '#{temp_hash[last_name]}', '#{temp_hash[street]}', '#{temp_hash[city]}', '#{temp_hash[state]}', '#{temp_hash[zip]}', '#{temp_hash[phone_number]}')")
+  VALUES('#{user_name}', '#{temp_hash[:first_name]}', '#{temp_hash[:last_name]}', '#{temp_hash[:street]}', '#{temp_hash[:city]}', '#{temp_hash[:state]}', '#{temp_hash[:zip]}', '#{temp_hash[:phone_number]}')")
 
   session[:user_name] = user_name
   redirect '/list'
 end
 
 post '/update' do
-  user_name = params[:user_name]
-  row_col = params[:contacts]
-  update = params[:new_info]
-  scroll = params[:scroll]
-
+  user_name = session[:user_name] || ""
+  row_col = params[:contacts] || ""
+  update = params[:new_info] || ""
+  scroll = params[:scroll] || ""
+  
   # escaping str
+  update = Sanitize.clean(update)
   update = client.escape(update)
 
   # finding what it being updated
@@ -162,6 +162,7 @@ post '/update' do
   when 7
     column = "Phone_Number"
   end
+
   # updating db
   client.query("UPDATE `contacts` SET `#{column}`='#{update}' WHERE `id`='#{row}' AND `user_name`='#{user_name}'")
   

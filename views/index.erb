@@ -1,5 +1,4 @@
 <title>Contacts</title>
-<script src="js/scripts.js"></script>
 <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -27,7 +26,6 @@
         </form>
     </div>
     <form method='post' action='/add' id="mah_form">
-    <input type="hidden" name="user_name" value="<%=user_name%>">
     <input type="hidden" name="scroll" id="yScroll" value="<%=scroll%>">
     <input type="hidden" name="contacts" id="rowCol" value="">
     <input type="hidden" name="new_info" id="update">
@@ -63,49 +61,49 @@
                 <%row << v %>
             <%end%>
             <% contact_list.each_with_index do |v,i| %>
-                <%col = 1%>
-                <% single = "#{row[i]}-#{col}" %>
                 <table id="<%= row[i] %>">
                     <tr> 
                         <td class="title">First Name:</td>
                         <td class="name_phone">
-                            <input type="text" id="<%=single%>" placeholder="First Name" value="<%=v[0].join("")%>">
-                            <% col += 1 %><% single = "#{row[i]}-#{col}" %></td><td>
+                            <input type="text" id="<%=row[i]%>-1" class="updater" name="First_Name" placeholder="First Name" value="<%=v[0].join("")%>" pattern=".{2,}" required title="2 Letters Minimum">
+                        </td><td>
                             <input type="checkbox" id="delete<%=row[i]%>" name="delete_contact" onclick="deleteThis();">
-                            <label for="delete<%=row[i]%>" class="delete" >&times;</label></td>
+                            <label for="delete<%=row[i]%>" class="delete" >&times;</label>
+                        </td>
                     </tr><tr>
                         <td class="title">Last Name:</td>
                         <td class="value">
-                            <input type="text" id="<%=single%>" placeholder="Last Name" value="<%=v[1].join("")%>">
-                            <% col += 1 %><% single = "#{row[i]}-#{col}" %></td>
+                            <input type="text" id="<%=row[i]%>-2" class="updater" name="Last_Name" placeholder="Last Name" value="<%=v[1].join("")%>" pattern=".{3,}" required title="3 Letters Minimum">
+                        </td>
                     </tr><tr>
                         <td class="title">Address:</td>
                         <td class="value">
-                            <input type="text" id="<%=single%>" placeholder="Street Address" value="<%=v[2].join("")%>">
-                            <% col += 1 %><% single = "#{row[i]}-#{col}" %></td>
+                            <input type="text" id="<%=row[i]%>-3" class="updater" name="Street" placeholder="Street Address" value="<%=v[2].join("")%>" required>
+                        </td>
                     </tr><tr>
                         <td class="title">City:</td>
                         <td class="value">
-                            <input type="text" id="<%=single%>" placeholder="City" value="<%=v[3].join("")%>">
-                            <% col += 1 %><% single = "#{row[i]}-#{col}" %></td>
+                            <input type="text" id="<%=row[i]%>-4" class="updater" name="City" placeholder="City" value="<%=v[3].join("")%>" required>
+                        </td>
                     </tr><tr>
                         <td class="title">State:</td>
                         <td class="value">
-                            <input type="text" id="<%=single%>" placeholder="State" value="<%=v[4].join("")%>">
-                            <% col += 1 %><% single = "#{row[i]}-#{col}" %></td>
+                            <input type="text" id="<%=row[i]%>-5" class="updater" name="State" placeholder="State" value="<%=v[4].join("")%>" pattern=".{2,2}" required title="Abbreviated States Only">
+                        </td>
                     </tr><tr>
                         <td class="title">Zip:</td>
                         <td class="value">
-                            <input type="text" id="<%=single%>" placeholder="Zip" value="<%=v[5].join("")%>">
-                            <% col += 1 %><% single = "#{row[i]}-#{col}" %></td>
+                            <input type="text" id="<%=row[i]%>-6" class="updater" name="Zip" placeholder="Zip" value="<%=v[5].join("")%>" pattern="\d{5}-?(\d{4})?" required title="5 Digit Minimum">
+                        </td>
                     </tr><tr>
                         <td class="title">Phone Number:</td>
                         <td class="name_phone">
-                            <input type="tel" id="<%=single%>" placeholder="Phone Number" value="<%=v[6].join("")%>" onchange="this.value=format(this);">
-                            <% col += 1 %><% single = "#{row[i]}-#{col}" %></td>
+                            <input type="tel" id="<%=row[i]%>-7" class="updater" name="Phone_Number" placeholder="Phone Number" value="<%=v[6].join("")%>" minlength="10" maxlength="14" onchange="this.value=format(this);" required title="10 digit Number">
+                        </td>
                     </tr>
                 </table>
             <% end %>
         </center>
     </form>
 </center>
+<script src="js/scripts.js"></script>

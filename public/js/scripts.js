@@ -1,11 +1,11 @@
 // Update DB on blur && scroll to position
-document.addEventListener('DOMContentLoaded', function() {
-    updateForm(document.querySelector('#mah_form'));
-});
 window.onload = function() {
     var y = document.getElementById("yScroll");
     window.scrollTo(0, y.value);
 }
+document.addEventListener('DOMContentLoaded', function() {
+    updateForm(document.querySelector('#mah_form'));
+});
 function updateForm(theForm) {
     theForm.addEventListener('blur', function(evt) {
         var x = evt.target;
@@ -29,7 +29,7 @@ function updateForm(theForm) {
 }
 // Format phone field
 function format(phone) {
-    var p_val = phone.value.replace(/\D[^\.]/g, "");
+    var p_val = phone.value.replace(/\D+/g, "");
     var temp = p_val.slice(0,3);
     if (temp != "304") {
         phone.value = "1("+temp+")"+p_val.slice(3,6)+"-"+p_val.slice(6);
@@ -88,6 +88,9 @@ function search() {
 // delete contact
 function deleteThis() {
     var checkbox = document.getElementsByName("delete_contact");
+    var a = document.getElementById("yScroll");
+    var b = window.pageYOffset;
+    a.value = b;
     for (var i = 0; i < checkbox.length; i++) {
         if (checkbox[i].checked) {
             var take = checkbox[i].parentNode.parentNode.parentNode.parentNode.id;
