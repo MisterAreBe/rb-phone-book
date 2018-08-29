@@ -30,24 +30,23 @@ post '/login' do
   correct_pass = []
 
   # cleaning user input
-  username = client.escape(username); username = Sanitize.clean(username)
-  password = client.escape(password); password = Sanitize.clean(password)
+  username = Sanitize.clean(username); username = client.escape(username)
+  password = Sanitize.clean(password); password = client.escape(password)
 
   # gathering user info
-  validation = client.query("SELECT `password` FROM users WHERE `user_name` = '#{username}'")
+  validation = client.query("SELECT `password` FROM `users` WHERE `user_name` = '#{username}'")
   validation.each do |v|
     correct_pass << v['password']
   end
   checkem = client.query("SELECT * FROM `users` WHERE `user_name` = '#{username}' AND `password` = '#{correct_pass.join("")}'")
   checkem.each do |v|
     checked << v['user_id']
-    kept_name << v['user_name']
   end
 
   # checking validation
   if checked[0].is_a?(Integer)
     if checked[0] > 0
-      session[:user_name] = kept_name.join("")
+      session[:user_name] = username
       redirect '/list'
     end
   else
@@ -95,13 +94,14 @@ get '/list' do
   contact_list = []
   contact_record = []
   # fetching user data
-  resultSet = client.query("SELECT * FROM contacts WHERE `user_name` = '#{user_name}'")
+  resultSet = client.query("SELECT * FROM `contacts` WHERE `user_name` = '#{user_name}'")
   resultSet.each do |row|
     contact_list << [[row['First_Name']], [row['Last_Name']], [row['Street']], [row['City']], [row['State']], [row['Zip']], [row['Phone_Number']]]
     contact_record << row['id']
   end
   # setting y index of page
   scroll = session[:scroll] || "0"
+  user_name.tr!("\\", "")
   erb :index, :layout => :layout, locals: {contact_list: contact_list, contact_record: contact_record,scroll: scroll, user_name: user_name}
 end
 
