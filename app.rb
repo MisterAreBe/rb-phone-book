@@ -91,6 +91,8 @@ end
 
 get '/list' do
   user_name = session[:user_name] || ""
+  user_name = Sanitize.clean(user_name)
+  user_name = client.escape(user_name)
   contact_list = []
   contact_record = []
   # fetching user data
@@ -106,15 +108,15 @@ get '/list' do
 end
 
 post '/add' do
-  user_name = session[:user_name] || ""
   temp_hash = {
+  user_name: session[:user_name] || "",
   first_name: params[:f_name] || "",
   last_name: params[:l_name] || "",
   street: params[:street] || "",
   city: params[:city] || "",
   state: params[:state] || "",
   zip: params[:zip] || "",
-  phone_number: params[:p_num] || "",
+  phone_number: params[:p_num] || ""
   }
 puts temp_hash
   # cleaning and escaping user input
@@ -125,9 +127,7 @@ puts temp_hash
 puts temp_hash
   # adding contact to db
   client.query("INSERT INTO `contacts`(user_name, First_Name, Last_Name, Street, City, State, Zip, Phone_Number)
-  VALUES('#{user_name}', '#{temp_hash[:first_name]}', '#{temp_hash[:last_name]}', '#{temp_hash[:street]}', '#{temp_hash[:city]}', '#{temp_hash[:state]}', '#{temp_hash[:zip]}', '#{temp_hash[:phone_number]}')")
-
-  session[:user_name] = user_name
+  VALUES('#{temp_hash[:user_name]}', '#{temp_hash[:first_name]}', '#{temp_hash[:last_name]}', '#{temp_hash[:street]}', '#{temp_hash[:city]}', '#{temp_hash[:state]}', '#{temp_hash[:zip]}', '#{temp_hash[:phone_number]}')")
   redirect '/list'
 end
 
@@ -140,7 +140,8 @@ post '/update' do
   # escaping str
   update = Sanitize.clean(update)
   update = client.escape(update)
-
+  user_name = Sanitize.clean(user_name)
+  user_name = client.escape(user_name)
   # finding what it being updated
   temp = row_col.split("-")
   row = temp[0]
